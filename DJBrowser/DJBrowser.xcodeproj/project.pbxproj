@@ -33,6 +33,7 @@
 		8F88FEF71C5F36C900A24080 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F88FEE61C5F36C900A24080 /* UIImageView+WebCache.m */; };
 		8F88FEF81C5F36C900A24080 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F88FEE81C5F36C900A24080 /* UIView+WebCacheOperation.m */; };
 		8F88FEFB1C5F370800A24080 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F88FEFA1C5F370800A24080 /* UIView+Layout.m */; };
+		8F88FEFE1C5F51C300A24080 /* DJBrowser.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8F88FEFD1C5F51C300A24080 /* DJBrowser.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		8F88FEE81C5F36C900A24080 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		8F88FEF91C5F370800A24080 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		8F88FEFA1C5F370800A24080 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		8F88FEFD1C5F51C300A24080 /* DJBrowser.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = DJBrowser.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 		8F88FE8D1C5F31B300A24080 /* DJBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				8F88FEFC1C5F519000A24080 /* Source */,
 				8F88FEC81C5F36C900A24080 /* SDWebImage */,
 				8F88FEC11C5F34B400A24080 /* DJImageBrowser */,
 				8F88FE911C5F31B300A24080 /* AppDelegate.h */,
@@ -250,6 +253,14 @@
 				8F88FEE81C5F36C900A24080 /* UIView+WebCacheOperation.m */,
 			);
 			path = SDWebImage;
+			sourceTree = "<group>";
+		};
+		8F88FEFC1C5F519000A24080 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				8F88FEFD1C5F51C300A24080 /* DJBrowser.gif */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F88FE9E1C5F31B300A24080 /* LaunchScreen.storyboard in Resources */,
+				8F88FEFE1C5F51C300A24080 /* DJBrowser.gif in Resources */,
 				8F88FE9B1C5F31B300A24080 /* Assets.xcassets in Resources */,
 				8F88FEE91C5F36C900A24080 /* LICENSE in Resources */,
 				8F88FE991C5F31B300A24080 /* Main.storyboard in Resources */,
