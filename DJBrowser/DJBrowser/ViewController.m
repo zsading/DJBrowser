@@ -28,6 +28,10 @@
     
     self.browCtrl = [[DJBrowserCtrl alloc] init];
     self.browCtrl.imageArray = self.dataArray;
+    self.browCtrl.deleteCallBack = ^(NSInteger index){
+        
+        
+    };
     
     
     UIButton *showBtn = [UIButton buttonWithType:UIButtonTypeCustom];
