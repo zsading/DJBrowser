@@ -35,16 +35,6 @@
 {
     self = [super init];
     if (self) {
-        [self createIndexTitleLabel];
-        [self createScrollView];
-        [self createCloseBtn];
-        [self createDeletePhotoBtn];
-        
-        self.scrollViewImageHeights = [NSMutableArray array];
-        [self.view addGestureRecognizer:self.doubleTap];
-        self.maxScale = 2.0;
-        self.minScale = 1.0;
-        self.currentScale = 1;
         
     }
     return self;
@@ -54,63 +44,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    [self.view showPlaceHolderWithAllSubviews];
+    
+    [self.view addSubview:self.indexTitleLabel];//Add title Label
+    [self.view addSubview:self.imageScrollView];//Add ScrollView
+    [self.view addSubview:self.closeBtn];// Add CloseButton
+    [self.view addSubview:self.deletePhotoBtn];//Add DeletePhoto Button
+    
+    [self.view addGestureRecognizer:self.doubleTap];
+    
+    self.scrollViewImageHeights = [NSMutableArray array];
+    
+    self.maxScale = 2.0;
+    self.minScale = 1.0;
+    self.currentScale = 1;
 }
 
-- (void)createCloseBtn
-{
-    self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    self.closeBtn.width = 45;
-    self.closeBtn.height = 35;
-    self.closeBtn.y = 25;
-    self.closeBtn.x = 15;
-    
-    [self.closeBtn addTarget:self action:@selector(closeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.closeBtn setBackgroundImage:[UIImage imageNamed:@"CorrectHomeworkIcon_cancelScan"] forState:UIControlStateNormal];
-    [self.closeBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [self.closeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.closeBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:self.closeBtn];
-}
-
-- (void)createDeletePhotoBtn
-{
-    self.deletePhotoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    self.deletePhotoBtn.width = 42;
-    self.deletePhotoBtn.height = 22;
-    self.deletePhotoBtn.y = 35;
-    self.deletePhotoBtn.x = SCREEN_WIDTH - 52;
-    
-    [self.deletePhotoBtn addTarget:self action:@selector(deleteBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.deletePhotoBtn setTitle:@"删除" forState:UIControlStateNormal];
-    self.deletePhotoBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:self.deletePhotoBtn];
-}
-
-- (void)createScrollView
-{
-    self.imageScrollView = [[UIScrollView alloc] init];
-    
-    self.imageScrollView.frame = CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
-    self.imageScrollView.delegate = self;
-    self.imageScrollView.pagingEnabled = YES;
-    self.imageScrollView.tag = 500;
-    [self.view addSubview:self.imageScrollView];
-}
-
-- (void)createIndexTitleLabel
-{
-    self.indexTitleLabel = [[UILabel alloc] init];
-    self.indexTitleLabel.textColor = [UIColor whiteColor];
-    self.indexTitleLabel.width = 100;
-    self.indexTitleLabel.height = 50;
-    self.indexTitleLabel.centerX = self.view.center.x;
-    self.indexTitleLabel.y = 30;
-    self.indexTitleLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:self.indexTitleLabel];
-    
-}
 
 - (UITapGestureRecognizer *)doubleTap
 {
@@ -420,8 +368,73 @@
     
 }
 
+#pragma mark - Getter/Setter
+
+- (UILabel *)indexTitleLabel{
+    
+    if (_indexTitleLabel == nil) {
+        _indexTitleLabel = [[UILabel alloc] init];
+        _indexTitleLabel.textColor = [UIColor whiteColor];
+        _indexTitleLabel.width = 100;
+        _indexTitleLabel.height = 50;
+        _indexTitleLabel.centerX = self.view.center.x;
+        _indexTitleLabel.y = 30;
+        _indexTitleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
+    return _indexTitleLabel;
+}
 
 
+- (UIScrollView *)imageScrollView{
+    
+    if (_imageScrollView == nil) {
+        _imageScrollView = [[UIScrollView alloc] init];
+        _imageScrollView.frame = CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+        _imageScrollView.delegate = self;
+        _imageScrollView.pagingEnabled = YES;
+        _imageScrollView.tag = 500;
+    }
+    
+    return _imageScrollView;
+}
+
+
+- (UIButton *)closeBtn{
+    
+    if (_closeBtn == nil) {
+        
+        _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _closeBtn.width = 45;
+        _closeBtn.height = 35;
+        _closeBtn.y = 25;
+        _closeBtn.x = 15;
+        [_closeBtn addTarget:self action:@selector(closeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        //[self.closeBtn setBackgroundImage:[UIImage imageNamed:@"CorrectHomeworkIcon_cancelScan"] forState:UIControlStateNormal];
+        [_closeBtn setTitle:@"返回" forState:UIControlStateNormal];
+        [_closeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _closeBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
+    return _closeBtn;
+}
+
+- (UIButton *)deletePhotoBtn{
+    
+    if (_deletePhotoBtn == nil) {
+        _deletePhotoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _deletePhotoBtn.width = 42;
+        _deletePhotoBtn.height = 22;
+        _deletePhotoBtn.y = 35;
+        _deletePhotoBtn.x = SCREEN_WIDTH - 52;
+        
+        [_deletePhotoBtn addTarget:self action:@selector(deleteBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_deletePhotoBtn setTitle:@"删除" forState:UIControlStateNormal];
+        _deletePhotoBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
+    return _deletePhotoBtn;
+}
 /*
 #pragma mark - Navigation
 
