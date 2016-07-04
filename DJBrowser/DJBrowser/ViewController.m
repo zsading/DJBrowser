@@ -38,7 +38,7 @@
     showBtn.width = 100;
     showBtn.height = 50;
     showBtn.center = self.view.center;
-    [showBtn setTitle:@"demo" forState:UIControlStateNormal];
+    [showBtn setTitle:@"click me show demo" forState:UIControlStateNormal];
     [showBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self.view addSubview:showBtn];
     [showBtn addTarget:self action:@selector(showDJBrowser) forControlEvents:UIControlEventTouchUpInside];
