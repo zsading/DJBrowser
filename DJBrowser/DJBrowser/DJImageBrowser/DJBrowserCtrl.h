@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DJImageSource.h"
+#import "DJImageSourceEntity.h"
+#import "DJImageEntity.h"
 
 @interface DJBrowserCtrl : UIViewController
 
@@ -15,7 +18,7 @@
 //父视图容器
 @property (nonatomic,strong) UIView *sourceImagesContainerView;
 //照片数组
-@property (nonatomic,strong) NSMutableArray *imageArray;
+//@property (nonatomic,strong) NSMutableArray *imageArray;
 //当前的index数量
 @property (nonatomic,assign) NSInteger currentImageIndex;
 //显示index的Label
@@ -27,7 +30,14 @@
 //删除按钮
 @property (nonatomic,strong) UIButton *deletePhotoBtn;
 
+@property (nonatomic,strong) DJImageSourceEntity *dj_imageSource;
+
 #pragma mark - 回调相关
 //删除回调
 @property (nonatomic,copy) void (^deleteCallBack)(NSInteger index);
+
+#pragma mark - init methods
+- (instancetype)initWithImageSource:(id <DJImageSource>)imageSource;
+
+- (instancetype)initWithContainerView:(UIView *)superContainerView;
 @end

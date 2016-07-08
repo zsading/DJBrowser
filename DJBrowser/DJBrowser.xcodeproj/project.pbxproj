@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		571885461D2F876700778887 /* DJImageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 571885451D2F876700778887 /* DJImageEntity.m */; };
+		571885491D2F879800778887 /* DJImageSourceEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 571885481D2F879800778887 /* DJImageSourceEntity.m */; };
 		8F88FE901C5F31B300A24080 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F88FE8F1C5F31B300A24080 /* main.m */; };
 		8F88FE931C5F31B300A24080 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F88FE921C5F31B300A24080 /* AppDelegate.m */; };
 		8F88FE961C5F31B300A24080 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F88FE951C5F31B300A24080 /* ViewController.m */; };
@@ -54,6 +56,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		571885441D2F876700778887 /* DJImageEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJImageEntity.h; sourceTree = "<group>"; };
+		571885451D2F876700778887 /* DJImageEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJImageEntity.m; sourceTree = "<group>"; };
+		571885471D2F879800778887 /* DJImageSourceEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJImageSourceEntity.h; sourceTree = "<group>"; };
+		571885481D2F879800778887 /* DJImageSourceEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJImageSourceEntity.m; sourceTree = "<group>"; };
+		5718854A1D2F89AA00778887 /* DJFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJFramework.h; sourceTree = "<group>"; };
+		5724C23C1D2F588B00738D2F /* DJImageSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJImageSource.h; sourceTree = "<group>"; };
+		5724C23D1D2F793000738D2F /* DJImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJImage.h; sourceTree = "<group>"; };
 		8F88FE8B1C5F31B200A24080 /* DJBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F88FE8F1C5F31B300A24080 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8F88FE911C5F31B300A24080 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -204,7 +213,14 @@
 			isa = PBXGroup;
 			children = (
 				8F88FEC41C5F34B400A24080 /* DJBrowserCtrl.h */,
+				5718854A1D2F89AA00778887 /* DJFramework.h */,
 				8F88FEC51C5F34B400A24080 /* DJBrowserCtrl.m */,
+				5724C23C1D2F588B00738D2F /* DJImageSource.h */,
+				5724C23D1D2F793000738D2F /* DJImage.h */,
+				571885441D2F876700778887 /* DJImageEntity.h */,
+				571885451D2F876700778887 /* DJImageEntity.m */,
+				571885471D2F879800778887 /* DJImageSourceEntity.h */,
+				571885481D2F879800778887 /* DJImageSourceEntity.m */,
 			);
 			path = DJImageBrowser;
 			sourceTree = "<group>";
@@ -403,10 +419,12 @@
 				8F88FEF81C5F36C900A24080 /* UIView+WebCacheOperation.m in Sources */,
 				8F88FEF41C5F36C900A24080 /* UIImage+GIF.m in Sources */,
 				8F88FEF21C5F36C900A24080 /* SDWebImagePrefetcher.m in Sources */,
+				571885461D2F876700778887 /* DJImageEntity.m in Sources */,
 				8F88FEFB1C5F370800A24080 /* UIView+Layout.m in Sources */,
 				8F88FE931C5F31B300A24080 /* AppDelegate.m in Sources */,
 				8F88FEEA1C5F36C900A24080 /* README.md in Sources */,
 				8F88FEEF1C5F36C900A24080 /* SDWebImageDownloader.m in Sources */,
+				571885491D2F879800778887 /* DJImageSourceEntity.m in Sources */,
 				8F88FEF31C5F36C900A24080 /* UIButton+WebCache.m in Sources */,
 				8F88FE901C5F31B300A24080 /* main.m in Sources */,
 				8F88FEEB1C5F36C900A24080 /* NSData+ImageContentType.m in Sources */,
@@ -638,6 +656,7 @@
 				8F88FEBA1C5F31B300A24080 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F88FEBB1C5F31B300A24080 /* Build configuration list for PBXNativeTarget "DJBrowserTests" */ = {
 			isa = XCConfigurationList;
@@ -646,6 +665,7 @@
 				8F88FEBD1C5F31B300A24080 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F88FEBE1C5F31B300A24080 /* Build configuration list for PBXNativeTarget "DJBrowserUITests" */ = {
 			isa = XCConfigurationList;
@@ -654,6 +674,7 @@
 				8F88FEC01C5F31B300A24080 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

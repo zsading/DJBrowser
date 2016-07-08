@@ -9,11 +9,14 @@
 #import "DJBrowserCtrl.h"
 #import "ViewController.h"
 #import "UIView+Layout.h"
+#import "DJImageSourceEntity.h"
+#import "DJImageEntity.h"
 
 @interface ViewController ()
 
 @property (nonatomic,strong) DJBrowserCtrl *browCtrl;
-@property (nonatomic,strong) NSMutableArray *dataArray;
+//@property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) DJImageSourceEntity *myImageSource;
 @end
 
 @implementation ViewController
@@ -25,13 +28,6 @@
     //demo
     
     [self initData];
-    
-    self.browCtrl = [[DJBrowserCtrl alloc] init];
-    self.browCtrl.imageArray = self.dataArray;
-    self.browCtrl.deleteCallBack = ^(NSInteger index){
-        
-        
-    };
     
     
     UIButton *showBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -51,13 +47,29 @@
     NSURL *url2 = [NSURL URLWithString:@"http://upload-images.jianshu.io/upload_images/1476423-2a26124e01149553.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"];
     NSURL *url3 = [NSURL URLWithString:@"http://upload-images.jianshu.io/upload_images/1476423-00b20746c7046090.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"];
     NSURL *url4 = [NSURL URLWithString:@"http://upload-images.jianshu.io/upload_images/1476423-8a57c3f235111cbb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"];
-    self.dataArray = [NSMutableArray arrayWithObjects:url,url2,url3,url4, nil];
+    
+    DJImageEntity *di_image1 = [[DJImageEntity alloc] initWithImageURL:url];
+    DJImageEntity *di_image2 = [[DJImageEntity alloc] initWithImageURL:url2];
+    DJImageEntity *di_image3 = [[DJImageEntity alloc] initWithImageURL:url3];
+    DJImageEntity *di_image4 = [[DJImageEntity alloc] initWithImageURL:url4];
+    
+    
+    
+    DJImageSourceEntity *imageSource = [[DJImageSourceEntity alloc] initWithImages:@[di_image1,di_image2,di_image3,di_image4]];
+    self.myImageSource = imageSource;
+//    self.dataArray = [NSMutableArray arrayWithObjects:url,url2,url3,url4, nil];
 }
 
 - (void)showDJBrowser{
     [self initData];
+    
+    self.browCtrl = [[DJBrowserCtrl alloc] initWithImageSource:self.myImageSource];
+    self.browCtrl.deleteCallBack = ^(NSInteger index){
+        
+        
+    };
+    
     [self presentViewController:self.browCtrl animated:YES completion:nil];
-    self.browCtrl.imageArray = self.dataArray;
 }
 
 - (void)didReceiveMemoryWarning {

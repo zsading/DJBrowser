@@ -10,6 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "UIView+Layout.h"
 
+
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 
@@ -27,16 +28,28 @@
 @property (nonatomic,assign) CGFloat minScale;
 //是否正在放大缩小
 @property (nonatomic,assign) BOOL isZoom;
+
+
 @end
 
 @implementation DJBrowserCtrl
 
--(instancetype)init
-{
-    self = [super init];
-    if (self) {
+
+- (instancetype)initWithImageSource:(id<DJImageSource>)imageSource{
+    
+    if (self = [super init]) {
+        self.dj_imageSource = imageSource;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithContainerView:(UIView *)superContainerView{
+    
+    if (self = [super init]) {
         
     }
+    
     return self;
 }
 
@@ -59,6 +72,10 @@
     self.currentScale = 1;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self initWithImageArray];
+}
 
 - (UITapGestureRecognizer *)doubleTap
 {
@@ -77,17 +94,17 @@
     [self initWithAllView];
 }
 
-- (void)setImageArray:(NSMutableArray *)imageArray{
-    _imageArray = imageArray;
-    [self initWithImageArray];
-}
+//- (void)setImageArray:(NSMutableArray *)imageArray{
+//    _imageArray = imageArray;
+//    [self initWithImageArray];
+//}
 
 - (void)initWithImageArray{
     
     
     [self.imageScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    for (int i = 0;i < self.imageArray.count;i++) {
+    for (int i = 0;i < self.dj_imageSource.imageCount;i++) {
         
         UIScrollView *singleScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(i*SCREEN_WIDTH,0, self.imageScrollView.width, self.imageScrollView.height)];
         singleScrollView.tag = 4000+i;
@@ -106,7 +123,9 @@
         [self.imageScrollView addSubview:singleScrollView];
         [singleScrollView addSubview:imageView];
         
-        [imageView sd_setImageWithURL:self.imageArray[i] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        DJImageEntity *imageEntity = self.dj_imageSource.images[i];
+        
+        [imageView sd_setImageWithURL:imageEntity.imageURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
            
             CGFloat scale = image.size.width/image.size.height;
             CGFloat imageViewHeight = SCREEN_WIDTH / scale;
@@ -120,7 +139,7 @@
         
     }
     [self changeImageScrollViewByContentSize];
-    self.indexTitleLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.currentImageIndex+1,(long)self.imageArray.count];
+    self.indexTitleLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.currentImageIndex+1,(long)self.dj_imageSource.imageCount];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:self.indexTitleLabel.text];
     [attStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
     self.indexTitleLabel.attributedText = attStr;
@@ -162,7 +181,7 @@
 -(void)setCurrentImageIndex:(NSInteger)currentImageIndex
 {
     _currentImageIndex = currentImageIndex;
-    self.indexTitleLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.currentImageIndex+1,(long)self.imageArray.count];
+    self.indexTitleLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.currentImageIndex+1,(long)self.dj_imageSource.imageCount];
 //    [self.imageScrollView setContentOffset:CGPointMake(self.currentImageIndex*SCREEN_WIDTH, 0)];
     
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:self.indexTitleLabel.text];
@@ -206,13 +225,13 @@
         if ((subScrollView.tag - 4000) == self.currentImageIndex) {
             //移除
             [subScrollView removeFromSuperview];
-            [self.imageArray removeObjectAtIndex:self.currentImageIndex];
+            [self.dj_imageSource removeObjectAtIndexe:self.currentImageIndex];
             
             //填补删除的空缺
             [self initWithImageArray];
             
             //回调
-            if (self.imageArray.count == 0) {
+            if (self.dj_imageSource.imageCount == 0) {
                 
                 [self dismissViewControllerAnimated:YES completion:nil];
                 if (self.deleteCallBack) {
@@ -302,7 +321,7 @@
 - (void)changeImageScrollViewByContentSize{
     
 //    UIImageView *imageView = [self.view viewWithTag:self.currentImageIndex + 3000];
-    self.imageScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*self.imageArray.count,0);
+    self.imageScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*self.dj_imageSource.imageCount,0);
     
 }
 
