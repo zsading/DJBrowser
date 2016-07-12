@@ -13,31 +13,28 @@
 
 @interface DJBrowserCtrl : UIViewController
 
-//滚动视图
+//Image ScrollView
 @property (nonatomic,strong) UIScrollView *imageScrollView;
-//父视图容器
+//Images ContainerView
 @property (nonatomic,strong) UIView *sourceImagesContainerView;
-//照片数组
-//@property (nonatomic,strong) NSMutableArray *imageArray;
-//当前的index数量
+//Current index
 @property (nonatomic,assign) NSInteger currentImageIndex;
-//显示index的Label
+//Show index Label
 @property (nonatomic,strong) UILabel *indexTitleLabel;
-//全部的图片数量
+//All images count
 @property (nonatomic,assign) NSInteger totalCount;
-//关闭按钮
+//Dismiss button
 @property (nonatomic,strong) UIButton *closeBtn;
-//删除按钮
+//Delete button
 @property (nonatomic,strong) UIButton *deletePhotoBtn;
-
+//DJImageSourceEntity object
 @property (nonatomic,strong) DJImageSourceEntity *dj_imageSource;
 
-#pragma mark - 回调相关
-//删除回调
+#pragma mark - CallBack
+//delete action callback
 @property (nonatomic,copy) void (^deleteCallBack)(NSInteger index);
 
 #pragma mark - init methods
 - (instancetype)initWithImageSource:(id <DJImageSource>)imageSource;
 
-- (instancetype)initWithContainerView:(UIView *)superContainerView;
 @end

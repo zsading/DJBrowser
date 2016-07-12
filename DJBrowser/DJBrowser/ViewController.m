@@ -31,7 +31,7 @@
     
     
     UIButton *showBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    showBtn.width = 100;
+    showBtn.width = 200;
     showBtn.height = 50;
     showBtn.center = self.view.center;
     [showBtn setTitle:@"click me show demo" forState:UIControlStateNormal];
@@ -57,7 +57,6 @@
     
     DJImageSourceEntity *imageSource = [[DJImageSourceEntity alloc] initWithImages:@[di_image1,di_image2,di_image3,di_image4]];
     self.myImageSource = imageSource;
-//    self.dataArray = [NSMutableArray arrayWithObjects:url,url2,url3,url4, nil];
 }
 
 - (void)showDJBrowser{
@@ -65,12 +64,12 @@
     
     self.browCtrl = [[DJBrowserCtrl alloc] initWithImageSource:self.myImageSource];
     self.browCtrl.deleteCallBack = ^(NSInteger index){
-        
-        
+        NSLog(@"Delete index is %ld",index);
     };
     
     [self presentViewController:self.browCtrl animated:YES completion:nil];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

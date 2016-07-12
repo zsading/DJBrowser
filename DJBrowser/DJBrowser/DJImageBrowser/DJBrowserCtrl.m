@@ -18,15 +18,15 @@
 
 
 @property (nonatomic,strong) NSMutableArray *scrollViewImageHeights;
-//双击
+//Double click
 @property (nonatomic,strong) UITapGestureRecognizer *doubleTap;
-//当前的比例
+//The current ratio
 @property (nonatomic,assign) CGFloat currentScale;
-//最大比例
+//The max ratio
 @property (nonatomic,assign) CGFloat maxScale;
-//最小比例
+//The min ratio
 @property (nonatomic,assign) CGFloat minScale;
-//是否正在放大缩小
+//if zoom
 @property (nonatomic,assign) BOOL isZoom;
 
 
@@ -44,14 +44,6 @@
     return self;
 }
 
-- (instancetype)initWithContainerView:(UIView *)superContainerView{
-    
-    if (self = [super init]) {
-        
-    }
-    
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,8 +69,7 @@
     [self initWithImageArray];
 }
 
-- (UITapGestureRecognizer *)doubleTap
-{
+- (UITapGestureRecognizer *)doubleTap{
     if (!_doubleTap) {
         _doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
         _doubleTap.numberOfTapsRequired = 2;
@@ -87,20 +78,14 @@
     return _doubleTap;
 }
 
--(void)setSourceImagesContainerView:(UIView *)sourceImagesContainerView
-{
+-(void)setSourceImagesContainerView:(UIView *)sourceImagesContainerView{
+    
     _sourceImagesContainerView = sourceImagesContainerView;
 //    初始化所有视图
     [self initWithAllView];
 }
 
-//- (void)setImageArray:(NSMutableArray *)imageArray{
-//    _imageArray = imageArray;
-//    [self initWithImageArray];
-//}
-
 - (void)initWithImageArray{
-    
     
     [self.imageScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
@@ -125,19 +110,25 @@
         
         DJImageEntity *imageEntity = self.dj_imageSource.images[i];
         
-        [imageView sd_setImageWithURL:imageEntity.imageURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-           
-            CGFloat scale = image.size.width/image.size.height;
-            CGFloat imageViewHeight = SCREEN_WIDTH / scale;
-            imageView.height = imageViewHeight;
-            imageView.centerY = self.imageScrollView.height/2;
+        if (imageEntity.imageURL == nil || [imageEntity.imageURL.absoluteString isEqualToString:@""]) {
+            imageView.image = imageEntity.dj_image;
             
-            [self.scrollViewImageHeights addObject:[NSNumber numberWithDouble:imageViewHeight]];
+        }else{
             
-        }];
-        
-        
+            [imageView sd_setImageWithURL:imageEntity.imageURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                CGFloat scale = image.size.width/image.size.height;
+                CGFloat imageViewHeight = SCREEN_WIDTH / scale;
+                imageView.height = imageViewHeight;
+                imageView.centerY = self.imageScrollView.height/2;
+                
+                [self.scrollViewImageHeights addObject:[NSNumber numberWithDouble:imageViewHeight]];
+                
+            }];
+            
+        }
     }
+    
     [self changeImageScrollViewByContentSize];
     self.indexTitleLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.currentImageIndex+1,(long)self.dj_imageSource.imageCount];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:self.indexTitleLabel.text];
@@ -178,8 +169,7 @@
 //    [self.view showPlaceHolderWithAllSubviews];
 }
 
--(void)setCurrentImageIndex:(NSInteger)currentImageIndex
-{
+-(void)setCurrentImageIndex:(NSInteger)currentImageIndex{
     _currentImageIndex = currentImageIndex;
     self.indexTitleLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.currentImageIndex+1,(long)self.dj_imageSource.imageCount];
 //    [self.imageScrollView setContentOffset:CGPointMake(self.currentImageIndex*SCREEN_WIDTH, 0)];
@@ -191,46 +181,31 @@
     [self changeImageScrollViewByContentSize];
 }
 
--(void)setTotalCount:(NSInteger)totalCount
-{
-
-    
-//    _totalCount = totalCount;
-//    self.indexTitleLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)self.currentImageIndex+1,(long)self.totalCount];
-//    
-//    if (self.totalCount == self.currentImageIndex) {
-//        self.currentImageIndex --;
-//    }else{
-//        self.imageScrollView.contentSize = CGSizeMake(self.totalCount*SCREEN_WIDTH,0);
-//    }
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Action
--(void)closeBtnAction:(UIButton *)btn
-{
+-(void)closeBtnAction:(UIButton *)btn{
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 -(void)deleteBtnAction:(UIButton *)btn{
 
-//    将imageView移去
+//    remove imageView
     for (UIScrollView *subScrollView in self.imageScrollView.subviews) {
         
-        //遍历找到当前的scrollView
+        //find scrollView
         if ((subScrollView.tag - 4000) == self.currentImageIndex) {
-            //移除
+            //remove
             [subScrollView removeFromSuperview];
             [self.dj_imageSource removeObjectAtIndexe:self.currentImageIndex];
             
-            //填补删除的空缺
+            //deal after delete
             [self initWithImageArray];
             
-            //回调
+            //callback
             if (self.dj_imageSource.imageCount == 0) {
                 
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -254,12 +229,6 @@
 
 
 #pragma mark - scrollView
-//-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-//{
-//    NSInteger index = scrollView.contentOffset.x/SCREEN_WIDTH;
-//    self.currentImageIndex = index;
-//    self.imageScrollView.contentSize = CGSizeMake(self.imageScrollView.contentSize.width, [self.scrollViewImageHeights[index] doubleValue]);
-//}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
@@ -345,7 +314,7 @@
             //            offset = x;
             for (UIScrollView *s in scrollView.subviews){
                 if ([s isKindOfClass:[UIScrollView class]]){
-                    [s setZoomScale:1.0]; //scrollView每滑动一次将要出现的图片较正常时候图片的倍数（将要出现的图片显示的倍数）
+                    [s setZoomScale:1.0]; //reset the view's zoomScacle to 1
                 }
             }
         }
@@ -353,7 +322,7 @@
 }
 
 
-#pragma mark 双击
+#pragma mark - double click
 - (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer
 {
     
@@ -430,7 +399,7 @@
         _closeBtn.x = 15;
         [_closeBtn addTarget:self action:@selector(closeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         //[self.closeBtn setBackgroundImage:[UIImage imageNamed:@"CorrectHomeworkIcon_cancelScan"] forState:UIControlStateNormal];
-        [_closeBtn setTitle:@"返回" forState:UIControlStateNormal];
+        [_closeBtn setTitle:@"Back" forState:UIControlStateNormal];
         [_closeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _closeBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -448,7 +417,7 @@
         _deletePhotoBtn.x = SCREEN_WIDTH - 52;
         
         [_deletePhotoBtn addTarget:self action:@selector(deleteBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_deletePhotoBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_deletePhotoBtn setTitle:@"Del" forState:UIControlStateNormal];
         _deletePhotoBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     }
     
