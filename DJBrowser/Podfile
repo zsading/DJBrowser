@@ -1,0 +1,4 @@
+ target 'DJBrowser' do
+     pod 'Reveal-SDK', :configurations => ['Debug']
+     pod 'SDWebImage'
+ end
